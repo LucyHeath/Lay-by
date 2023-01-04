@@ -47,7 +47,7 @@ I created this website for General Assembly's project three along with my other 
 
 ## Planning
 
-### Wireframe
+### Wireframe
 We used Excalidraw to design roughly how the website would look and function, to define the user journey and  to help us determine the data needed in our schemas and the endpoints that were required for each page. 
 Desktop
 
