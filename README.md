@@ -1,7 +1,5 @@
 # Lay-by - GA Project Three - 7 Days
-![Screenshot 2023-01-06 at 12 54 54](https://user-images.githubusercontent.com/114397080/211016475-917aacd6-9745-4e85-8a9c-a953a292f577.png)
-
-![Screenshot 2023-01-06 at 12 55 50](https://user-images.githubusercontent.com/114397080/211016633-5577b1a3-a764-47c8-928f-9da90fd66548.png)
+![Homepage Hero and carousel](https://user-images.githubusercontent.com/114397080/211016475-917aacd6-9745-4e85-8a9c-a953a292f577.png)
 
 ## Description
 Lay-by is a website which aims to provide those in the van-owning community with useful insider information about locations for van camping. Public users can use the website to view van spots across a number of countries, and are provided with useful insights into the locations, facilities and ratings. As a registered user of the site you are able to add your own new van camping locations and leave reviews and ratings on all spots. 
@@ -131,6 +129,17 @@ export const getPayload = () => {
 
 ### Homepage
 
+#### Hero
+
+#### Location carousel
+
+#### Call to action and widget
+The bold image in the CTA prompts users to registration or login, and the embedded Woxo widget provides a vibrand, moving instagram carousel with the same theme as the site. 
+
+![Homepage CTA and widget](https://user-images.githubusercontent.com/114397080/211016633-5577b1a3-a764-47c8-928f-9da90fd66548.png)
+
+
+
 ### Location index page
 This page is built using a card component(Bootstrap)
 
@@ -174,7 +183,9 @@ This page displays the data from an individual location endpoint.
 
 ![Single location page with map tab](https://user-images.githubusercontent.com/114397080/211049132-40f03252-6661-4bd9-8f9b-ab47067233b0.png)
 
-![Review tab on single location page](https://user-images.githubusercontent.com/114397080/211049943-f5a08202-c911-4db6-8305-23a8bd7cf0c1.png)
+
+![Review tab on the single page location](https://user-images.githubusercontent.com/114397080/211066347-b8ce0228-2a73-431a-8677-83927361ea96.png)
+
 
 Data is brought into the `LocationSinglePage.js` using the single location endpoint within a `useEffect`. 
 
