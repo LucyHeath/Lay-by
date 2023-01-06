@@ -129,16 +129,16 @@ export const getPayload = () => {
 
 ### Homepage
 
-#### Hero
+#### Hero and location carousel
+The hero image describes the site and the "Start Exploring Locations" button clicks through to the locaiton index page. 
+The continually changing carousel shows random location in the database (Bootstrap card display) and provides inspiration to the user. They can control the carousel (`CarouselCard.js`) using the arrow buttons, and canskip back if they saw an location they liked. The basic card infographics could be larger and have space between.  
 
-#### Location carousel
+![Homepage carousel](https://user-images.githubusercontent.com/114397080/211069459-fd3e4f46-aefc-4abf-999c-c2c3fcac6eb1.png)
 
 #### Call to action and widget
-The bold image in the CTA prompts users to registration or login, and the embedded Woxo widget provides a vibrand, moving instagram carousel with the same theme as the site. 
+The bold image in the CTA prompts users to registration or login, and the embedded Woxo widget provides a vibrant, moving instagram carousel with the same theme as the site. 
 
 ![Homepage CTA and widget](https://user-images.githubusercontent.com/114397080/211016633-5577b1a3-a764-47c8-928f-9da90fd66548.png)
-
-
 
 ### Location index page
 This page is built using a card component(Bootstrap)
