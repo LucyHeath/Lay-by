@@ -66,13 +66,12 @@ We used [Excalidraw](https://excalidraw.com) to sketch out how the website would
 #### Mobile
 ![Screenshot 2023-01-06 at 13 51 14](https://user-images.githubusercontent.com/114397080/211025548-69154f92-5269-4506-b17e-9149950ef981.png)
 
-### Project Plan
-As a group we communicated continually throughout the day during project week, meeting for standups twice daily to examine our progress and prioritise what work needed doing. We used [Trello](https://trello.com/) to manage the work flow and keep track of progress and deadlines. We allocate tasks during our meetings, assign our names to the card and move it between the decks as appropriate. Each meeting we would appraise our progress and work through any problems together. Although we individually on the code, each person in the team worked on both the front and back end components and contributed to all the pages and design. 
+### Team organisation
+As a group we communicated continually throughout the day during project week, meeting for standups twice daily to examine our progress and prioritise what work needed doing. We used [Trello](https://trello.com/) to manage the work flow and keep track of progress and deadlines. We allocate tasks during our meetings, assign our names to the card and move it between the decks as appropriate. Each meeting we would appraise our progress and work through any problems together, keeping notes on a spreadsheet. Although we individually on the code, each person in the team worked on both the front and back end components and contributed to all the pages and design. 
 
 ![Screenshot 2023-01-06 at 13 58 19](https://user-images.githubusercontent.com/114397080/211026786-9bd2ce07-b1af-4271-a720-300a1a9ca046.png)
 
 ## Build Process
-
 
 ## App.js 
 
@@ -97,6 +96,129 @@ This was achieved with a combination of Bootstrap and Sass.
 
 ## Back-end
 
+## Schemas
+
+### Review
+Review schema with embedded owner schema.
+```javascript
+const reviewSchema = new mongoose.Schema(
+  {
+    text: { type: String, required: true, unique: false },
+    owner: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
+    rating: { type: Number, required: true },
+  },
+  {
+    timestamps: true
+  }
+)
+```
+
+### Location
+Location schema with embedded owner and referenced reviews.
+```javascript
+const locationSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  latitude: { type: Number, required: true },
+  longitude: { type: Number, required: true },
+  countryCode: { type: String, required: true },
+  currency: { type: String, required: true },
+  description: { type: String, required: true },
+  parking: { type: Boolean, required: true },
+  freeparking: { type: Boolean, required: true },
+  toilets: { type: Boolean, required: true },
+  water: { type: Boolean, required: true },
+  nearestFuel: { type: Number, required: true },
+  nearbyActivities: { type: String },
+  image: [String],
+  owner: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User',
+    required: true
+  },
+  reviews: [reviewSchema]
+})
+```
+
+### Country
+Country schema with referenced owner schema and embedded review schema.
+```javascript
+const countrySchema = new mongoose.Schema({
+  country: { type: String, required: true, unique: true },
+  countryCode: { type: String, required: true },
+  flag: { type: String, required: true },
+  locations: [locationSchema],
+  owner: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User',
+    required: true
+  }
+})
+```
+
+### Rating
+Rating virtual schema.
+```javascript
+locationSchema.virtual('avgRating').get(function () {
+  if (!this.reviews.length) return 'No Rating'
+  const sum = this.reviews.reduce((prev, next) => {
+    return prev + next.rating
+  }, 0)
+  return (sum / this.reviews.length).toFixed(1)
+})
+
+locationSchema.set('toJSON', {
+  virtuals: true
+})
+```
+
+### User
+ This defines the fields a user will have to complete on registration.
+```javascript
+const userSchema = new mongoose.Schema({
+  username: { type: String, required: true, unique: true, maxlength: 30 },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  image: { type: String },
+})
+```
+
+## Routes
+Routes were tested using [Insomnia](https://insomnia.rest/). Using Express we created all routes and connected them to their own specific controller functions, routes that require the user to be logged in also needed to go through the secureRoute function.
+
+```javascript
+const router = express.Router()
+
+router.route('/locations')
+  .get(getAllLocations)
+  .post(secureRoute, addLocation)
+
+router.route('/locations/:locationId')
+  .get(getSingleLocation)
+  .put(secureRoute, updateLocation)
+  .delete(secureRoute, deleteLocation)
+
+router.route('/register')
+  .post(registerUser)
+
+router.route('/login')
+  .post(loginUser)
+
+router.route('/locations/:locationId/review')
+  .post(secureRoute, addReview)
+
+router.route('/locations/:locationId/review/:reviewId')
+  .delete(secureRoute, deleteReview)
+  .put(secureRoute, editReview)
+
+router.route('/users/:userId')
+  .get(secureRoute, getUser)
+  .put(secureRoute, setProfilePic)
+
+router.route('/users')
+  .get(getAllUsers)
+
+export default router
+```
 ## Challenges
 * It was great havimg such a collaborative approach, but on a couple of occassion small bits of work were duplicated, which could have been avoided. 
 * It was sometimes tricky at times working on a task that somepne else had already begun to code. 
@@ -106,7 +228,7 @@ This was achieved with a combination of Bootstrap and Sass.
 * We all communicated well, merged early and often (and had few merge conflicts).
 
 ## Key Learnings/Takeaways
-* 
+* Naming conventions are very important, and must be meanigful and consistent. 
  
 ## Bugs
 
