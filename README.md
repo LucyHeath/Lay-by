@@ -366,20 +366,12 @@ export const deleteLocation = async (req, res) => {
 * **POST** 'api/register'
 
 ```javascript
-/ * Register controller
-// Method: POST
-// Endpoint: /register
-// Attempt to create new user returning back new user if created
-// Throw an error if not
 export const registerUser = async (req, res) => {
   try {
     const newUser = await User.create(req.body)
-    console.log(req.body)
-    // Write data to database? 
     return res.status(202).json({ message: `Welcome ${newUser.username}` })
   } catch (err) {
     console.log(err)
-    console.log(req.body)
     return res.status(422).json({ message: err.message })
   }
 }
@@ -395,8 +387,8 @@ export const loginUser = async (req, res) => {
     const { email, password } = req.body
     // check email on the req.body against the collection to see if there's a matching document
     const userToLogin = await User.findOne({ email: email })
-    //Check to see if user has been found & password match
-    //Passing password entered to the custom function we created in user schema
+    // check to see if user has been found & password match
+    // passing password entered to the custom function we created in user schema
     if (!userToLogin || !userToLogin.validatePassword(password)) {
       throw new Unauthorised()
     }
