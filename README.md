@@ -83,8 +83,21 @@ As a group we communicated continually throughout the day during project week, m
 ### Homepage
 
 ### Location index page
+This page is built using a card component(Bootstrap)
 
+![Screenshot 2023-01-06 at 15 49 45](https://user-images.githubusercontent.com/114397080/211047556-e93bd77e-ff39-4cec-8e47-876923059baf.png)
+
+#### Filter and search bar
+
+This works well and can be used in combination if the user would like to filter a spot by country of directly search for the location by name.
+
+![Screenshot 2023-01-06 at 15 45 01](https://user-images.githubusercontent.com/114397080/211046650-e3a2077c-1ff4-45b9-98c3-0ba465581bf3.png)
+![Screenshot 2023-01-06 at 15 46 12](https://user-images.githubusercontent.com/114397080/211046866-0b2a64a3-d70a-4d95-b886-5d57dfb49120.png)
+
+#### Loading spinner
+Heroku can take some time to load, therefore the use of a spinner keeps the user engaged whilst the page isloading. 
 ### Single location page
+
 
 ### Add and edit location pages
 
@@ -93,7 +106,7 @@ As a group we communicated continually throughout the day during project week, m
 ### Profile page
 
 ### Styling
-This was achieved with a combination of Bootstrap and Sass. I styled the forms and we worked collaboratively on the visual design through the rest of the pages and components. We standardised features like colour palette, buttons etc. 
+This was achieved with a combination of Bootstrap and Sass. I styled the forms and we worked collaboratively on the visual design through the rest of the pages and components. We standardised features like the colour palette, buttons etc. 
 
 ## Back-end
 
@@ -412,10 +425,10 @@ export const loginUser = async (req, res) => {
 ```
 
 ## Challenges
-* It was great havimg such a collaborative approach, but on a couple of occassion small bits of work were duplicated, although as this was a learniing opportunity it wasn't too problematic. 
+* It was great havimg such a collaborative approach, but on a couple of occassion small bits of work were duplicated. As this was a learniing opportunity it wasn't too problematic. 
 * It could be challenging building on some one elses code, or navigating around unfamiliar components.
 * The naming conventions are all over the place. As changes were made,due to time limitations, some variables and funcitons were not renamed, this lead to some confuciotn at points, espiecially when the group chose to change the topic a day in to the coding process. 
-* Parts of the code is heavily annotated which helps in undertanding it, but makes it very hard to read. It could be much more DRY.
+* Parts of the code is heavily annotated which helps in undertanding it, but makes it very hard to read. It could be much more DRY.The Sass unessarily lengthy and there are duplications due to 3 people working on it in the final sprint! 
 * Although it was important to have a good end product, my primary aim was to learn as much as possible, and do the basics well. It was great to learn from other group members who had more coding experience but sometimes there was a risk of overstretching on the deliverables, and not achieving the MVP.
 
 ## Wins
@@ -429,6 +442,7 @@ export const loginUser = async (req, res) => {
 ## Bugs
 
 ## Future Improvements
+* Refactoring parts of the code, especially the Sass. 
 * Show the users locations in their profile (already showing their reviews)
 * Add in a favorites system and show users favorites in their profile
 * A few design changes: larger logo on landing page, larger and bolder font on the location card infographics/text, more info with hover for the infographics.
