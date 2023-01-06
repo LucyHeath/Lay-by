@@ -77,7 +77,12 @@ As a group we communicated continually throughout the day during project week, m
 ### App.js 
 
 ### Navbar
+
+The Navbar is responsive and becomes a burger and collapsable menu on smaller screens and the options change depending on user authentication. 
+
 ![Logged in Navbar](https://user-images.githubusercontent.com/114397080/211049250-9a2cca76-602d-4bff-96ff-747333ca668c.png)
+![Logged out Navbar](https://user-images.githubusercontent.com/114397080/211056888-bd2f673d-b8ba-47b8-b9cc-3b1bfd1fa0a0.png)
+![Burger Navbar on smaller screens](https://user-images.githubusercontent.com/114397080/211057168-ae184a67-0ef3-45bb-b21d-ae21aeb12cd4.png)
 
 ### Homepage
 
@@ -93,19 +98,45 @@ This works well and can be used in combination if the user would like to filter 
 ![Filter](https://user-images.githubusercontent.com/114397080/211046650-e3a2077c-1ff4-45b9-98c3-0ba465581bf3.png)
 ![Search](https://user-images.githubusercontent.com/114397080/211046866-0b2a64a3-d70a-4d95-b886-5d57dfb49120.png)
 
+``javascript
+const FilterSearch = ({ locations, setFilteredLocations }) => {
+  const [input, setInput] = useState({
+    search: '',
+    countryCode: 'All'
+  })
+  useEffect(() => {
+    const regex = new RegExp(input.search, 'i')
+    const filteredArr = locations.filter((loc) => {
+      return (
+        regex.test(loc.name) &&
+        (loc.countryCode === input.countryCode || input.countryCode === 'All')
+      )
+    })
+    setFilteredLocations(filteredArr)
+  }, [input, locations, setFilteredLocations])
+
+  const handleChange = (e) => {
+    setInput({ ...input, [e.target.name]: e.target.value })
+  }
+```
+
 #### Loading spinner
 Heroku can take some time to load, therefore the use of a spinner keeps the user engaged whilst the page isloading. 
 
 ### Single location page
 
-This page displays the data from an indicidual location endpoint. 
+This page displays the data from an individual location endpoint. 
 ![Single location page with map tab](https://user-images.githubusercontent.com/114397080/211049132-40f03252-6661-4bd9-8f9b-ab47067233b0.png)
 ![Review tab on single location page](https://user-images.githubusercontent.com/114397080/211049943-f5a08202-c911-4db6-8305-23a8bd7cf0c1.png)
 
 Data is brought into the `LocationSinglePage.js` using the single location endpoint within a `useEffect`. 
 
 ```javascript
- useEffect(() => {
+  const [location, setLocation] = useState(null)
+  const { locationId } = useParams()
+  const navigate = useNavigate()
+
+  useEffect(() => {
     const getLocation = async () => {
       try {
         const { data } = await axios.get(`/api/locations/${locationId}`)
@@ -117,14 +148,34 @@ Data is brought into the `LocationSinglePage.js` using the single location endpo
     getLocation()
   }, [locationId])
 ```
-At the top of the page, next to the location name we have the average rating, which is clculated from the user reviews. 
-We used a carousel to display the location images (Cloudinary), which  provides interest to the page. 
-The inforgraphic display is an unfussy way to desplay the key info, but could have benefitted from use of tooltips and the font being slightly larger.
-We chose to inject Mapbox and used tabls to toggle between the review and map tabs, to keep the page design clean and minimal. 
+The average user rating is calculated from the user reviews. 
 
-If the user is logged in, conditional logic will display the edit or delete the location buttons. A modal to prevent accidental deletion would have been useful here. 
+The `CarouselImage.js` component shows the location images (served by Cloudinary) and the movement and variety of images provides interest to the page. 
+
+The `InforgraphicSingle.js` component displays the site key data. It would have benefitted from use of tooltips and the font being slightly larger.
+
+We chose to inject Mapbox and used tabs to toggle between the review and map tabs, to keep the page design clean and minimal. 
+
+If the user is the location owner, conditional logic will display the edit or delete location the buttons to them. A modal to prevent accidental deletion would have been useful here. 
 ![Edit and delete locations](https://user-images.githubusercontent.com/114397080/211051728-8a67ffbc-58ab-46e9-99c0-27195f6b7521.png)
 
+#### Delete location controller
+
+```javascript
+const deleteLocation = async (e) => {
+    try {
+      const response = await axios.delete(`/api/locations/${locationId}`, {
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      })
+      navigate('/')
+      console.log(response)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+```
 ### Add and edit location pages
 
 ![Add location form](https://user-images.githubusercontent.com/114397080/211048990-6bb92d88-921f-4027-9620-1e4f80103adf.png)
@@ -470,7 +521,7 @@ export const loginUser = async (req, res) => {
 ## Bugs
 
 ## Future Improvements
-* Refactoring parts of the code, especially the Sass. 
+* Refactoring parts of the code, especially the Sass. There could be further break down into component parts.
 * Show the locations created by an individual user in their own profile (already show their reviews)
 * Adding in geolocation from Mapbox, rather than having to input the lat and long for the add location, would make a better user experience.
 * Add in a favorites system and show users favorites in their profile
