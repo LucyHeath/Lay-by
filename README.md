@@ -92,13 +92,13 @@ This page is built using a card component(Bootstrap)
 ![Index page](https://user-images.githubusercontent.com/114397080/211047556-e93bd77e-ff39-4cec-8e47-876923059baf.png)
 
 #### Filter and search bar
-
 This works well and can be used in combination if the user would like to filter a spot by country of directly search for the location by name.
 
 ![Filter](https://user-images.githubusercontent.com/114397080/211046650-e3a2077c-1ff4-45b9-98c3-0ba465581bf3.png)
+
 ![Search](https://user-images.githubusercontent.com/114397080/211046866-0b2a64a3-d70a-4d95-b886-5d57dfb49120.png)
 
-``javascript
+```javascript
 const FilterSearch = ({ locations, setFilteredLocations }) => {
   const [input, setInput] = useState({
     search: '',
@@ -121,12 +121,14 @@ const FilterSearch = ({ locations, setFilteredLocations }) => {
 ```
 
 #### Loading spinner
-Heroku can take some time to load, therefore the use of a spinner keeps the user engaged whilst the page isloading. 
+Heroku can take some time to load, therefore the use of a spinner keeps the user engaged whilst the page is loading. 
 
 ### Single location page
 
 This page displays the data from an individual location endpoint. 
+
 ![Single location page with map tab](https://user-images.githubusercontent.com/114397080/211049132-40f03252-6661-4bd9-8f9b-ab47067233b0.png)
+
 ![Review tab on single location page](https://user-images.githubusercontent.com/114397080/211049943-f5a08202-c911-4db6-8305-23a8bd7cf0c1.png)
 
 Data is brought into the `LocationSinglePage.js` using the single location endpoint within a `useEffect`. 
@@ -148,18 +150,17 @@ Data is brought into the `LocationSinglePage.js` using the single location endpo
     getLocation()
   }, [locationId])
 ```
-The average user rating is calculated from the user reviews. 
 
-The `CarouselImage.js` component shows the location images (served by Cloudinary) and the movement and variety of images provides interest to the page. 
+* **Average user rating** is calculated from the user reviews. 
+* **`CarouselImage.js`** component shows the location images (served by Cloudinary) and the movement and variety of images provides interest to the page. 
+* **`InforgraphicSingle.js`** component displays the site key data. It would have benefitted from use of tooltips and the font being slightly larger.
+* **Mapbox** injects a pictoral representation of the location, and the user can zoon in/out and view the lat and long.
+* **Tabs** toggle between the review and mapkeep the page design clean and minimal. 
+* **"Edit Location"** and **"Delete Location"** buttons display if the user is the location owner. A modal to prevent accidental deletion would have been useful here. 
 
-The `InforgraphicSingle.js` component displays the site key data. It would have benefitted from use of tooltips and the font being slightly larger.
-
-We chose to inject Mapbox and used tabs to toggle between the review and map tabs, to keep the page design clean and minimal. 
-
-If the user is the location owner, conditional logic will display the edit or delete location the buttons to them. A modal to prevent accidental deletion would have been useful here. 
 ![Edit and delete locations](https://user-images.githubusercontent.com/114397080/211051728-8a67ffbc-58ab-46e9-99c0-27195f6b7521.png)
 
-#### Delete location controller
+#### Delete location controller, JSX return and `isOwner` helper (`Auth.js`)
 
 ```javascript
 const deleteLocation = async (e) => {
@@ -176,6 +177,25 @@ const deleteLocation = async (e) => {
     }
   }
 ```
+```javascript
+{isOwner(location.owner) &&
+                      <div className='edit-delete-buttons d-flex justify-content-evenly'>
+                        <button onClick={deleteLocation} className='btn btn-danger btn-lg mt-3 mb-3 ' id='del-btn'>Delete Location</button>
+                        <Link to={`/locations/${locationId}/edit`}>
+                          <button className='btn  btn-warning btn-lg mt-3 mb-3' id='edit-btn'>Edit Location</button>
+                        </Link>
+                      </div>
+                    }
+```
+```javascript
+export const isOwner = (token1) => {
+  const payload = getPayload()
+  if (!payload) return false
+  return token1 === payload.sub
+}
+
+```
+
 ### Add and edit location pages
 
 ![Add location form](https://user-images.githubusercontent.com/114397080/211048990-6bb92d88-921f-4027-9620-1e4f80103adf.png)
