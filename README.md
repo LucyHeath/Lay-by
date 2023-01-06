@@ -66,16 +66,17 @@ We used [Excalidraw](https://excalidraw.com) to sketch out how the website would
 #### Mobile
 ![Screenshot 2023-01-06 at 13 51 14](https://user-images.githubusercontent.com/114397080/211025548-69154f92-5269-4506-b17e-9149950ef981.png)
 
-### Team organisation
-As a group we communicated continually throughout the day during project week, meeting for standups twice daily to examine our progress and prioritise what work needed doing. We used [Trello](https://trello.com/) to manage the work flow and keep track of progress and deadlines. We allocate tasks during our meetings, assign our names to the card and move it between the decks as appropriate. Each meeting we would appraise our progress and work through any problems together, keeping notes on a spreadsheet. Although we individually on the code, each person in the team worked on both the front and back end components and contributed to all the pages and design. 
+## Build Process
+
+As a group we communicated continually throughout the day during project week, meeting for standups twice daily to examine our progress and prioritise what work needed doing. We used [Trello](https://trello.com/) to manage the work flow and keep track of progress and deadlines. We allocate tasks during our meetings, assign our names to the card and move it between the decks as appropriate. Each meeting we would appraise our progress and work through any problems together, keeping notes on a spreadsheet. Although we all coded individually, we broke work up into components, rather than pages, so we all got the chance to work across the stack on different comploennts.
 
 ![Screenshot 2023-01-06 at 13 58 19](https://user-images.githubusercontent.com/114397080/211026786-9bd2ce07-b1af-4271-a720-300a1a9ca046.png)
 
-## Build Process
-
-## App.js 
-
 ## Front-end
+
+
+
+### App.js 
 
 ### Navbar
 
@@ -92,9 +93,49 @@ As a group we communicated continually throughout the day during project week, m
 ### Profile page
 
 ### Styling
-This was achieved with a combination of Bootstrap and Sass.
+This was achieved with a combination of Bootstrap and Sass. I styled the forms and we worked collaboratively on the visual design through the rest of the pages and components. We standardised features like colour palette, buttons etc. 
 
 ## Back-end
+
+Whilst the back end was a joint effort, I primarily took ownership of the CRUD functionality for the locations, and heavily contributed to the login and register controllers, back end authentication and the schemas.
+
+## Routes
+Routes were tested using [Insomnia](https://insomnia.rest/). Using Express we created all routes and connected them to their own specific controller functions, routes that require the user to be logged in also needed to go through the secureRoute function.
+
+```javascript
+const router = express.Router()
+
+router.route('/locations')
+  .get(getAllLocations)
+  .post(secureRoute, addLocation)
+
+router.route('/locations/:locationId')
+  .get(getSingleLocation)
+  .put(secureRoute, updateLocation)
+  .delete(secureRoute, deleteLocation)
+
+router.route('/register')
+  .post(registerUser)
+
+router.route('/login')
+  .post(loginUser)
+
+router.route('/locations/:locationId/review')
+  .post(secureRoute, addReview)
+
+router.route('/locations/:locationId/review/:reviewId')
+  .delete(secureRoute, deleteReview)
+  .put(secureRoute, editReview)
+
+router.route('/users/:userId')
+  .get(secureRoute, getUser)
+  .put(secureRoute, setProfilePic)
+
+router.route('/users')
+  .get(getAllUsers)
+
+export default router
+```
 
 ## Schemas
 
@@ -180,44 +221,6 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   image: { type: String },
 })
-```
-
-## Routes
-Routes were tested using [Insomnia](https://insomnia.rest/). Using Express we created all routes and connected them to their own specific controller functions, routes that require the user to be logged in also needed to go through the secureRoute function.
-
-```javascript
-const router = express.Router()
-
-router.route('/locations')
-  .get(getAllLocations)
-  .post(secureRoute, addLocation)
-
-router.route('/locations/:locationId')
-  .get(getSingleLocation)
-  .put(secureRoute, updateLocation)
-  .delete(secureRoute, deleteLocation)
-
-router.route('/register')
-  .post(registerUser)
-
-router.route('/login')
-  .post(loginUser)
-
-router.route('/locations/:locationId/review')
-  .post(secureRoute, addReview)
-
-router.route('/locations/:locationId/review/:reviewId')
-  .delete(secureRoute, deleteReview)
-  .put(secureRoute, editReview)
-
-router.route('/users/:userId')
-  .get(secureRoute, getUser)
-  .put(secureRoute, setProfilePic)
-
-router.route('/users')
-  .get(getAllUsers)
-
-export default router
 ```
 
 ## Controllers
@@ -419,6 +422,7 @@ export const loginUser = async (req, res) => {
 ## Challenges
 * It was great havimg such a collaborative approach, but on a couple of occassion small bits of work were duplicated, which could have been avoided. 
 * It was sometimes tricky at times working on a task that somepne else had already begun to code. 
+* The naming conventions are all over the place. As changes were made due to time limitatiosn variables and funcitons were not renames, this lead to some confuciotn at points, espiecially when the group chose to change the topic a day in to the coding process. 
 
 ## Wins
 * This was my first time using GitHub as a team. 
