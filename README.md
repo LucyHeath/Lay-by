@@ -75,14 +75,59 @@ As a group we communicated continually throughout the day during project week, m
 ## Front-end
 
 ### App.js 
+```javscript
+const App = () => {
 
+  return (
+    <div className='sitewrapper'>
+      <BrowserRouter>
+        <NavBar />
+        <Routes>
+          <Route path='/' element={<LandingPage />} />
+          <Route path='/locations' element={<LocationMultiPage />} />
+          <Route path='/locations/:locationId' element={<LocationSinglePage />} />
+          <Route path='/login' element={<LoginPage />} />
+          <Route path='/register' element={<RegisterPage />} />
+          <Route path='/locations/add' element={<AddLocation />} />
+          <Route path='/locations/:locationId/edit' element={<EditLocation />} />
+          <Route path='/profile/:userId' element={<UserProfilePage />} />
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    </div>
+
+  )
+}
+```
 ### Navbar
 
-The Navbar is responsive and becomes a burger and collapsable menu on smaller screens and the options change depending on user authentication. 
+The Navbar is responsive and becomes a burger and collapsable menu on smaller screens, and the options change depending on user authentication. 
 
 ![Logged in Navbar](https://user-images.githubusercontent.com/114397080/211049250-9a2cca76-602d-4bff-96ff-747333ca668c.png)
 ![Logged out Navbar](https://user-images.githubusercontent.com/114397080/211056888-bd2f673d-b8ba-47b8-b9cc-3b1bfd1fa0a0.png)
 ![Burger Navbar on smaller screens](https://user-images.githubusercontent.com/114397080/211057168-ae184a67-0ef3-45bb-b21d-ae21aeb12cd4.png)
+
+#### `isAuthenticated` helper in `Auth.js`
+```javascript
+export const isAuthenticated = () => {
+  const payload = getPayload()
+  if (!payload) return false
+  const { exp } = payload
+  const now = Math.round(Date.now() / 1000)
+  return exp > now
+}
+```
+#### `getPayload` helper in `Auth.js`
+```javascript
+export const getPayload = () => {
+  const token = getToken()
+  if (!token) return false
+  const splitToken = token.split('.')
+  if (splitToken.length !== 3) return false
+  return JSON.parse(Buffer.from(splitToken[1], 'base64'))
+}
+```
 
 ### Homepage
 
