@@ -74,32 +74,60 @@ As a group we communicated continually throughout the day during project week, m
 
 ## Front-end
 
-
-
 ### App.js 
 
 ### Navbar
+![Logged in Navbar](https://user-images.githubusercontent.com/114397080/211049250-9a2cca76-602d-4bff-96ff-747333ca668c.png)
 
 ### Homepage
 
 ### Location index page
 This page is built using a card component(Bootstrap)
 
-![Screenshot 2023-01-06 at 15 49 45](https://user-images.githubusercontent.com/114397080/211047556-e93bd77e-ff39-4cec-8e47-876923059baf.png)
+![Index page](https://user-images.githubusercontent.com/114397080/211047556-e93bd77e-ff39-4cec-8e47-876923059baf.png)
 
 #### Filter and search bar
 
 This works well and can be used in combination if the user would like to filter a spot by country of directly search for the location by name.
 
-![Screenshot 2023-01-06 at 15 45 01](https://user-images.githubusercontent.com/114397080/211046650-e3a2077c-1ff4-45b9-98c3-0ba465581bf3.png)
-![Screenshot 2023-01-06 at 15 46 12](https://user-images.githubusercontent.com/114397080/211046866-0b2a64a3-d70a-4d95-b886-5d57dfb49120.png)
+![Filter](https://user-images.githubusercontent.com/114397080/211046650-e3a2077c-1ff4-45b9-98c3-0ba465581bf3.png)
+![Search](https://user-images.githubusercontent.com/114397080/211046866-0b2a64a3-d70a-4d95-b886-5d57dfb49120.png)
 
 #### Loading spinner
 Heroku can take some time to load, therefore the use of a spinner keeps the user engaged whilst the page isloading. 
+
 ### Single location page
 
+This page displays the data from an indicidual location endpoint. 
+![Single location page with map tab](https://user-images.githubusercontent.com/114397080/211049132-40f03252-6661-4bd9-8f9b-ab47067233b0.png)
+![Review tab on single location page](https://user-images.githubusercontent.com/114397080/211049943-f5a08202-c911-4db6-8305-23a8bd7cf0c1.png)
+
+Data is brought into the `LocationSinglePage.js` using the single location endpoint within a `useEffect`. 
+
+```javascript
+ useEffect(() => {
+    const getLocation = async () => {
+      try {
+        const { data } = await axios.get(`/api/locations/${locationId}`)
+        setLocation(data)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    getLocation()
+  }, [locationId])
+```
+At the top of the page, next to the location name we have the average rating, which is clculated from the user reviews. 
+We used a carousel to display the location images (Cloudinary), which  provides interest to the page. 
+The inforgraphic display is an unfussy way to desplay the key info, but could have benefitted from use of tooltips and the font being slightly larger.
+We chose to inject Mapbox and used tabls to toggle between the review and map tabs, to keep the page design clean and minimal. 
+
+If the user is logged in, conditional logic will display the edit or delete the location buttons. A modal to prevent accidental deletion would have been useful here. 
+![Edit and delete locations](https://user-images.githubusercontent.com/114397080/211051728-8a67ffbc-58ab-46e9-99c0-27195f6b7521.png)
 
 ### Add and edit location pages
+
+![Add location form](https://user-images.githubusercontent.com/114397080/211048990-6bb92d88-921f-4027-9620-1e4f80103adf.png)
 
 ### Register and login pages
 
@@ -443,7 +471,9 @@ export const loginUser = async (req, res) => {
 
 ## Future Improvements
 * Refactoring parts of the code, especially the Sass. 
-* Show the users locations in their profile (already showing their reviews)
+* Show the locations created by an individual user in their own profile (already show their reviews)
+* Adding in geolocation from Mapbox, rather than having to input the lat and long for the add location, would make a better user experience.
 * Add in a favorites system and show users favorites in their profile
 * A few design changes: larger logo on landing page, larger and bolder font on the location card infographics/text, more info with hover for the infographics.
 * Make more of user profile- add bio and add user name with click through to public profile on locations they have added or reviewed. 
+* Add in modals when the user clicks on "Delete" anywhere on the site, to prevent accidental deletion. 
