@@ -242,8 +242,105 @@ export const isOwner = (token1) => {
 ```
 
 ### Add and edit location pages
+The form is used to edit a location that the user has added. The form fields are populated with the location data with the GET request, and data is sent to the API wihtthe PUT request. The request must check the user is authenticated to make the request. Once complete the user is navigated to their newly updated location. Note `LocationForm.js` is a reuseable component brought in to both the add and edit pages.
 
-![Add location form](https://user-images.githubusercontent.com/114397080/211048990-6bb92d88-921f-4027-9620-1e4f80103adf.png)
+![Screenshot 2023-01-06 at 17 32 00](https://user-images.githubusercontent.com/114397080/211065951-82b426a5-b688-4bd9-8f7e-19a6722c0929.png)
+
+```javascript
+const EditLocation = () => {
+
+  const { locationId } = useParams()
+  const navigate = useNavigate()
+  const [errors, setErrors] = useState(null)
+  const [formFields, setFormFields] = useState({
+    name: '',
+    latitude: undefined,
+    longitude: undefined,
+    countryCode: '',
+    currency: '',
+    description: '',
+    parking: true,
+    freeParking: false,
+    toilets: false,
+    water: false,
+    nearestFuel: undefined,
+    nearbyActivities: '',
+    image: ''
+  })
+
+  useEffect(() => {
+    const getSingleLocation = async () => {
+      try {
+        const { data } = await axios.get(`/api/locations/${locationId}`)
+        //populate for fields with single location info
+        setFormFields(data)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    getSingleLocation()
+  }, [locationId])
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      const { data } = await axios.put(`/api/locations/${locationId}`, formFields,
+        {
+          headers: {
+            Authorization: `Bearer ${getToken()}`,
+          },
+        })
+      console.log('Location edited ->', data)
+      navigate(`/locations/${locationId}`)
+    } catch (err) {
+      console.log('Edit failed ->', err)
+      setErrors(err.response.data)
+    }
+  }
+
+  // ! JSX
+  return (
+    <div className="site-wrapper">
+      <div className="hero-page text-center form-main">
+        <h1 className="mt-5">Edit a Location</h1>
+        <LocationForm
+          handleSubmit={handleSubmit}
+          formFields={formFields}
+          setFormFields={setFormFields}
+          errors={errors}
+          setErrors={setErrors}
+          formName="Edit Location"
+        />
+      </div>
+    </div>
+    
+  )
+}
+
+export default EditLocation
+```
+The `LocationForm.js` contains general and field specific error handling.
+
+```javascript
+         <input
+            className="form-control mt-3 mb-3"
+            type="text"
+            name="nearbyActivities"
+            id="nearbyActivities"
+            onChange={handleChange}
+            placeholder="Nearby activities e.g. Hiking, swimming..."
+            value={formFields.nearbyActivities}
+          />
+          {errors && errors.nearbyActivities && <small className='text-danger'>{errors.nearbyActivities}</small>}
+          <UploadImage 
+            imageFormData={formFields}
+            setFormData={setFormFields}
+          />
+          {errors && errors.image && <small className='text-danger'>{errors.image}</small>}
+          {/* Generic Message Error */}
+          {errors && errors.message && <small className='text-danger'>{errors.message}</small>}
+          {/* <Button type="button" className="btn  btn-lg mt-5 mb-4" onClick={() => handleSubmit()}>Submit</Button> */}
+```
 
 ### Register and login pages
 
