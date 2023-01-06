@@ -219,6 +219,203 @@ router.route('/users')
 
 export default router
 ```
+
+## Controllers
+
+### Location index route 
+* **GET** '/api/locations'
+
+```javascript
+export const getAllLocations = async (req, res) => {
+  try {
+    const location = await findAllLocations(req, res)
+    return res.json(location)
+  } catch (err) {
+    console.log(err)
+    errorHandler(res, err)
+  }
+}
+```
+`getAllLocations` uses this `findAllLocations` function in `helper.js` to find the location objects nested inside each region (country) 
+
+```javascript
+export const findAllLocations = async (req, _res) => {
+  try {
+    const locations = await VanSpot.find()
+    for (const location of locations) {
+      await location.populate('locations.reviews.owner')
+    }
+    const filteredLocations = locations.map(loc => {
+      return loc.locations
+    })
+    const concatFilteredLocations = filteredLocations.flat()
+    return concatFilteredLocations
+  } catch (err) {
+    console.log(err)
+  }
+}
+```
+
+### Location single route 
+* **GET** '/api/locations/:locationId'
+
+```javascript
+export const getSingleLocation = async (req, res) => {
+  try {
+    const location = await findLocation(req, res)
+    return res.json(location)
+  } catch (err) {
+    console.log(err)
+    errorHandler(res, err)
+  }
+}
+```
+The `getSingleLocation`controller uses the helper `findLocation` ( `helper.js`) to find to filter the location objects and find the single location. 
+
+```javascript
+export const findLocation = async (req, res) => {
+  try {
+    const { locationId } = req.params
+    const location = await findAllLocations(req, res)
+    const targetLocation = location.filter(loc => {
+      return locationId === loc.id
+    })
+    const [newTargetLocation] = targetLocation
+    return newTargetLocation
+  } catch (err) {
+    console.log(err)
+  }
+}
+```
+### Add new location
+* **POST** 'api/createLocation'
+
+```javascript
+export const addLocation = async (req, res) => {
+  try {
+    const { countryCode } = req.body
+    const country = await VanSpot.find()
+    const targetCountry = country.filter(country => {
+      return country.countryCode === countryCode
+    })
+    if (!targetCountry) {
+      throw new Error('This location does not have a valid country')
+    }
+    const [newTargetCountry] = targetCountry
+    if (newTargetCountry) {
+      const newLocation = { ...req.body, owner: req.currentUser.id }
+      newTargetCountry.locations.push(newLocation)
+      await newTargetCountry.save()
+      return res.status(201).json(targetCountry)
+    }
+  } catch (err) {
+    console.log(err)
+    errorHandler(res, err)
+  }
+}
+```
+
+### Edit a location
+* **PUT** 'api/:locationId/editLocation'
+
+```javascript
+export const updateLocation = async (req, res) => {
+  try {
+    const targetLocation = await findLocation(req, res)
+    if (targetLocation && req.currentUser._id.equals(targetLocation.owner)) {
+      Object.assign(targetLocation, req.body)
+      const parent = await targetLocation.parent()
+      await parent.save()
+      return res.status(202).json(targetLocation)
+    } else {
+      throw new Unauthorised()
+    }
+  } catch (err) {
+    console.log(err)
+    errorHandler(err)
+  }
+}
+```
+
+### Delete a location
+* **PUT** 'api/:locationId/deleteLocation'
+
+```javascript
+export const deleteLocation = async (req, res) => {
+  try {
+    const targetLocation = await findLocation(req, res)
+    if (targetLocation && req.currentUser._id.equals(targetLocation.owner)) {
+      targetLocation.remove()
+      const parent = await targetLocation.parent()
+      await parent.save()
+      return res.sendStatus(204)
+    } else {
+      throw new Unauthorised()
+    }
+  } catch (err) {
+    console.log(err)
+    errorHandler(err)
+  }
+}
+```
+
+### Register
+* **POST** 'api/register'
+
+```javascript
+/ * Register controller
+// Method: POST
+// Endpoint: /register
+// Attempt to create new user returning back new user if created
+// Throw an error if not
+export const registerUser = async (req, res) => {
+  try {
+    const newUser = await User.create(req.body)
+    console.log(req.body)
+    // Write data to database? 
+    return res.status(202).json({ message: `Welcome ${newUser.username}` })
+  } catch (err) {
+    console.log(err)
+    console.log(req.body)
+    return res.status(422).json({ message: err.message })
+  }
+}
+```
+
+### Login
+* **POST** 'api/login'
+
+```javascript
+export const loginUser = async (req, res) => {
+  try {
+    // destructure email and password keys from req.body
+    const { email, password } = req.body
+    // check email on the req.body against the collection to see if there's a matching document
+    const userToLogin = await User.findOne({ email: email })
+    //Check to see if user has been found & password match
+    //Passing password entered to the custom function we created in user schema
+    if (!userToLogin || !userToLogin.validatePassword(password)) {
+      throw new Unauthorised()
+    }
+    // if they match, create an object with user id and the username and send token back to user
+    const payload = {
+      sub: userToLogin._id,
+      username: userToLogin.username
+    }
+    // set secret = to secret in .env file
+    const secret = process.env.SECRET
+    // create token from payload and the secret
+    const token = jwt.sign(payload, secret, { expiresIn: '7 days' })
+    // return welcome message and token to user
+    return res.json({
+      message: `Welcome back ${userToLogin.username}`,
+      token: token
+    })
+  } catch (err) {
+    console.log(err)
+  }
+```
+
 ## Challenges
 * It was great havimg such a collaborative approach, but on a couple of occassion small bits of work were duplicated, which could have been avoided. 
 * It was sometimes tricky at times working on a task that somepne else had already begun to code. 
