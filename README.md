@@ -73,6 +73,8 @@ As a group we communicated continually throughout the day during project week, m
 ## Front-end
 
 ### App.js 
+The `App.js` shows the structure of the site
+
 ```javscript
 const App = () => {
 
@@ -253,7 +255,7 @@ export const isOwner = (token1) => {
 ```
 
 ### Add and edit location pages
-The form is used to edit a location that the user has added. The form fields are populated with the location data with the GET request, and data is sent to the API wihtthe PUT request. The request must check the user is authenticated to make the request. Once complete the user is navigated to their newly updated location. Note `LocationForm.js` is a reuseable component brought in to both the add and edit pages.
+The form is used to edit a location that the user has added. The form fields are populated with the location data with the GET request, and data is sent to the API wihtthe PUT request. The request must check the user is authenticated to make the request. Once complete the user is navigated to their newly updated location. Note `LocationForm.js` is a reuseable component brought in to both the add and edit pages."Add location" button is located in the user profile, where as the "Edit location" button is on the location page itself. 
 
 ![Screenshot 2023-01-06 at 17 32 00](https://user-images.githubusercontent.com/114397080/211065951-82b426a5-b688-4bd9-8f7e-19a6722c0929.png)
 
@@ -355,7 +357,11 @@ The `LocationForm.js` contains general and field specific error handling.
 
 ### Register and login pages
 
-### Profile page
+Both `Register.js` and `Login.js` are minimalistic forms, in keeping witht hte rest of the site theme. 
+
+![Registration form ](https://user-images.githubusercontent.com/114397080/211071508-51151993-ee43-41db-b2ec-f5fe13ba840b.png)
+
+Unfortunatley,the register and login forms lack error display to the user. Thsi is an unfortunate oversite. Users are also able to register accounts with very insecre passwords, which is not optimal. 
 
 ### Styling
 This was achieved with a combination of Bootstrap and Sass. I styled the forms and we worked collaboratively on the visual design through the rest of the pages and components. We standardised features like the colour palette, buttons etc. 
@@ -690,8 +696,6 @@ export const loginUser = async (req, res) => {
 
 ## Key Learning
 * Naming conventions are very important, and must be meanigful and consistent. Take time to make changes if necessary.
- 
-## Bugs
 
 ## Future Improvements
 * Refactoring parts of the code, especially the Sass. There could be further break down into component parts.
@@ -701,3 +705,4 @@ export const loginUser = async (req, res) => {
 * A few design changes: larger logo on landing page, larger and bolder font on the location card infographics/text, more info with hover for the infographics.
 * Make more of user profile- add bio and add user name with click through to public profile on locations they have added or reviewed. 
 * Add in modals when the user clicks on "Delete" anywhere on the site, to prevent accidental deletion. 
+* Error handling - this is not displyed on the  register/login form. 
