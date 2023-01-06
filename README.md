@@ -412,16 +412,19 @@ export const loginUser = async (req, res) => {
 ```
 
 ## Challenges
-* It was great havimg such a collaborative approach, but on a couple of occassion small bits of work were duplicated, which could have been avoided. 
-* It was sometimes tricky at times working on a task that somepne else had already begun to code. 
-* The naming conventions are all over the place. As changes were made due to time limitatiosn variables and funcitons were not renames, this lead to some confuciotn at points, espiecially when the group chose to change the topic a day in to the coding process. 
+* It was great havimg such a collaborative approach, but on a couple of occassion small bits of work were duplicated, although as this was a learniing opportunity it wasn't too problematic. 
+* It could be challenging building on some one elses code, or navigating around unfamiliar components.
+* The naming conventions are all over the place. As changes were made,due to time limitations, some variables and funcitons were not renamed, this lead to some confuciotn at points, espiecially when the group chose to change the topic a day in to the coding process. 
+* Parts of the code is heavily annotated which helps in undertanding it, but makes it very hard to read. It could be much more DRY.
+* Although it was important to have a good end product, my primary aim was to learn as much as possible, and do the basics well. It was great to learn from other group members who had more coding experience but sometimes there was a risk of overstretching on the deliverables, and not achieving the MVP.
 
 ## Wins
-* This was my first time using GitHub as a team. 
-* We all communicated well, merged early and often (and had few merge conflicts).
+* This was my first time using GitHub as a team and it worked very well because we merged early and often (and had few merge conflicts).
+* I found working as a team was a great way of cementing my own skills, as well as learing new ones. Having a team that could act as a sounding board and support with problemsolving felt very supportive. 
+* I utilised my soft skills with regards to team working, communication and organisation. I facilitated the daily standups and progress checking. 
 
-## Key Learnings/Takeaways
-* Naming conventions are very important, and must be meanigful and consistent. 
+## Key Learning
+* Naming conventions are very important, and must be meanigful and consistent. Take time to make changes if necessary.
  
 ## Bugs
 
