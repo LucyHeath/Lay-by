@@ -357,7 +357,7 @@ The `LocationForm.js` contains general and field specific error handling.
 
 ### Register and login pages
 
-Both `Register.js` and `Login.js` are minimalistic forms, in keeping witht hte rest of the site theme. 
+Both `Register.js` and `Login.js` are minimalistic forms, in keeping with the rest of the site theme. 
 
 ![Registration form ](https://user-images.githubusercontent.com/114397080/211071508-51151993-ee43-41db-b2ec-f5fe13ba840b.png)
 
