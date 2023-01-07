@@ -2,7 +2,7 @@
 ![Homepage Hero and carousel](https://user-images.githubusercontent.com/114397080/211016475-917aacd6-9745-4e85-8a9c-a953a292f577.png)
 
 ## Description
-Lay-by is a website which aims to provide those in the van-owning community with useful insider information about locations for van camping. Public users can use the website to view van spots across a number of countries, and are provided with useful insights into the locations, facilities and ratings. As a registered user of the site you are able to add your own new van camping locations and leave reviews and ratings on all spots. 
+Lay-by is a website which aims to provide those in the van-owning community with useful insider information about locations for van camping. All users can view van spots across a number of countries, and are provided with useful insights into the locations, facilities and ratings. As a registered user of the site you are able to add your own new van camping locations and leave reviews and ratings on all spots. 
 
 ## Deployment Link
 Lay-by was deployed with Heroku and can be experienced [here](http://bit.ly/lay-by).
@@ -24,7 +24,7 @@ I created this website for General Assembly's project three along with my other 
 
 ## Features
 * All users can search for locations by name and filter search results by countries.
-* All users can view locations detailed information about the site, including the average user rating and reviews left by other users. 
+* All users can view locations and detailed information about the site, including the average user rating and reviews left by other users. 
 * Users can register for an account which allows them to log in 
 * Logged in users can create, update and delete locations.
 * Logged in users can write, edit and delete their own reviews of the locations.
@@ -66,7 +66,7 @@ We used [Excalidraw](https://excalidraw.com) to sketch out how the website would
 
 ## Build Process
 
-As a group we communicated continually throughout the day during project week, meeting for standups twice daily to examine our progress and prioritise what work needed doing. We used [Trello](https://trello.com/) to manage the work flow and keep track of progress and deadlines. We allocate tasks during our meetings, assign our names to the card and move it between the decks as appropriate. Each meeting we would appraise our progress and work through any problems together, keeping notes on a spreadsheet. Although we all coded individually, we broke work up into components, rather than pages, so we all got the chance to work across the stack on different comploennts.
+As a group we communicated continually throughout the day during project week, meeting for standups twice daily to examine our progress and prioritise what work needed doing. We used [Trello](https://trello.com/) to manage the workflow and keep track of progress and deadlines. We allocate tasks during our meetings, assign our names to the card and move it between the decks as appropriate. Each meeting we would appraise our progress and work through any problems together, keeping notes on a spreadsheet. Although we all coded individually, we broke work up into components, rather than pages, so we all got the chance to work across the stack on different comploennts.
 
 ![Screenshot 2023-01-06 at 13 58 19](https://user-images.githubusercontent.com/114397080/211026786-9bd2ce07-b1af-4271-a720-300a1a9ca046.png)
 
@@ -132,13 +132,13 @@ export const getPayload = () => {
 ### Homepage
 
 #### Hero and location carousel
-The hero image describes the site and the "Start Exploring Locations" button clicks through to the locaiton index page. 
-The continually changing carousel shows random location in the database (Bootstrap card display) and provides inspiration to the user. They can control the carousel (`CarouselCard.js`) using the arrow buttons, and canskip back if they saw an location they liked. The basic card infographics could be larger and have space between.  
+The hero image describes the site and the "Start Exploring Locations" button clicks through to the location index page. 
+The continually changing carousel shows random location in the database (Bootstrap card display) and provides inspiration to the user. They can control the carousel (`CarouselCard.js`) using the arrow buttons, and can skip back if they saw an location they liked. The basic card infographics could be larger and have space between.  
 
 ![Homepage carousel](https://user-images.githubusercontent.com/114397080/211069459-fd3e4f46-aefc-4abf-999c-c2c3fcac6eb1.png)
 
 #### Call to action and widget
-The bold image in the CTA prompts users to registration or login, and the embedded Woxo widget provides a vibrant, moving instagram carousel with the same theme as the site. 
+The bold image in the CTA prompts users to register or login, and the embedded Woxo widget provides a vibrant, moving instagram carousel with the same theme as the site. 
 
 ![Homepage CTA and widget](https://user-images.githubusercontent.com/114397080/211016633-5577b1a3-a764-47c8-928f-9da90fd66548.png)
 
@@ -148,7 +148,7 @@ This page is built using a card component(Bootstrap)
 ![Index page](https://user-images.githubusercontent.com/114397080/211047556-e93bd77e-ff39-4cec-8e47-876923059baf.png)
 
 #### Filter and search bar
-This works well and can be used in combination if the user would like to filter a spot by country of directly search for the location by name.
+This works well and can be used in combination if the user would like to filter a spot by country or directly search for the location by name.
 
 ![Filter](https://user-images.githubusercontent.com/114397080/211046650-e3a2077c-1ff4-45b9-98c3-0ba465581bf3.png)
 
@@ -212,7 +212,7 @@ Data is brought into the `LocationSinglePage.js` using the single location endpo
 * **Average user rating** is calculated from the user reviews. 
 * **`CarouselImage.js`** component shows the location images (served by Cloudinary) and the movement and variety of images provides interest to the page. 
 * **`InforgraphicSingle.js`** component displays the site key data. It would have benefitted from use of tooltips and the font being slightly larger.
-* **Mapbox** injects a pictoral representation of the location, and the user can zoon in/out and view the lat and long.
+* **Mapbox** injects a pictorial representation of the location.The user can zoom in/out and view the latitude and longitude.
 * **Tabs** toggle between the review and mapkeep the page design clean and minimal. 
 * **"Edit Location"** and **"Delete Location"** buttons display if the user is the location owner. A modal to prevent accidental deletion would have been useful here. 
 
@@ -255,7 +255,7 @@ export const isOwner = (token1) => {
 ```
 
 ### Add and edit location pages
-The form is used to edit a location that the user has added. The form fields are populated with the location data with the GET request, and data is sent to the API wihtthe PUT request. The request must check the user is authenticated to make the request. Once complete the user is navigated to their newly updated location. Note `LocationForm.js` is a reuseable component brought in to both the add and edit pages."Add location" button is located in the user profile, where as the "Edit location" button is on the location page itself. 
+The form is used to edit a location that the user has added. The form fields are populated with the location data with a GET request, and data is sent to the API with a PUT request. The request must check the user is authenticated to make the request. Once complete the user is navigated to their newly updated location. Note `LocationForm.js` is a reuseable component brought in to both the add and edit pages. The ”Add location" button is located in the user profile, whereas the "Edit Location" button is on the location page itself.
 
 ![Screenshot 2023-01-06 at 17 32 00](https://user-images.githubusercontent.com/114397080/211065951-82b426a5-b688-4bd9-8f7e-19a6722c0929.png)
 
@@ -361,7 +361,7 @@ Both `Register.js` and `Login.js` are minimalistic forms, in keeping witht hte r
 
 ![Registration form ](https://user-images.githubusercontent.com/114397080/211071508-51151993-ee43-41db-b2ec-f5fe13ba840b.png)
 
-Unfortunatley,the register and login forms lack error display to the user. Thsi is an unfortunate oversite. Users are also able to register accounts with very insecre passwords, which is not optimal. 
+Unfortunately,the register and login forms lack error display to the user. This is an unfortunate oversight. Users are also able to register accounts with very insecure passwords, which is not optimal.
 
 ### Styling
 This was achieved with a combination of Bootstrap and Sass. I styled the forms and we worked collaboratively on the visual design through the rest of the pages and components. We standardised features like the colour palette, buttons etc. 
@@ -544,7 +544,7 @@ export const getSingleLocation = async (req, res) => {
   }
 }
 ```
-The `getSingleLocation`controller uses the helper `findLocation` ( `helper.js`) to find to filter the location objects and find the single location. 
+The `getSingleLocation`controller uses the helper `findLocation` ( `helper.js`) to filter the location objects and find the single location. 
 
 ```javascript
 export const findLocation = async (req, res) => {
@@ -683,26 +683,26 @@ export const loginUser = async (req, res) => {
 ```
 
 ## Challenges
-* It was great havimg such a collaborative approach, but on a couple of occassion small bits of work were duplicated. As this was a learniing opportunity it wasn't too problematic. 
-* It could be challenging building on some one elses code, or navigating around unfamiliar components.
-* The naming conventions are all over the place. As changes were made,due to time limitations, some variables and funcitons were not renamed, this lead to some confuciotn at points, espiecially when the group chose to change the topic a day in to the coding process. 
-* Parts of the code is heavily annotated which helps in undertanding it, but makes it very hard to read. It could be much more DRY.The Sass unessarily lengthy and there are duplications due to 3 people working on it in the final sprint! 
+* It was great having such a collaborative approach, but on a couple of occasions small bits of work were duplicated. As this was a learning opportunity it wasn't too problematic. 
+* It could be challenging building on someone else's code, or navigating around unfamiliar components.
+* The naming conventions are all over the place. As changes were made, due to the time limitations, some variables and functions were not renamed. This led to some confusion at points, especially when the group chose to change the topic a day into the coding process. 
+* Parts of the code are heavily annotated which helps in understanding it, but can make it hard to read. It could be much more DRY and the Sass is unnecessarily lengthy - there are duplications due to three  people working on it in the final sprint!
 * Although it was important to have a good end product, my primary aim was to learn as much as possible, and do the basics well. It was great to learn from other group members who had more coding experience but sometimes there was a risk of overstretching on the deliverables, and not achieving the MVP.
 
 ## Wins
 * This was my first time using GitHub as a team and it worked very well because we merged early and often (and had few merge conflicts).
-* I found working as a team was a great way of cementing my own skills, as well as learing new ones. Having a team that could act as a sounding board and support with problemsolving felt very supportive. 
+* I found working as a team was a great way of cementing my own skills, as well as learning new ones. Having a team that could act as a sounding board and support with problem solving felt very supportive. 
 * I utilised my soft skills with regards to team working, communication and organisation. I facilitated the daily standups and progress checking. 
 
 ## Key Learning
-* Naming conventions are very important, and must be meanigful and consistent. Take time to make changes if necessary.
+* Naming conventions are very important, and must be meaningful and consistent. Take time to make changes if necessary.
 
 ## Future Improvements
 * Refactoring parts of the code, especially the Sass. There could be further break down into component parts.
-* Show the locations created by an individual user in their own profile (already show their reviews)
+* Show the locations created by an individual user in their own profile (already show their reviews).
 * Adding in geolocation from Mapbox, rather than having to input the lat and long for the add location, would make a better user experience.
-* Add in a favorites system and show users favorites in their profile
+* Add in a favourite system and show it on the user profile. 
 * A few design changes: larger logo on landing page, larger and bolder font on the location card infographics/text, more info with hover for the infographics.
-* Make more of user profile- add bio and add user name with click through to public profile on locations they have added or reviewed. 
+* Make more of the user profile- add bio and user name with click through to public profile on locations they have added or reviewed. 
 * Add in modals when the user clicks on "Delete" anywhere on the site, to prevent accidental deletion. 
-* Error handling - this is not displyed on the  register/login form. 
+* Error handling - this is not displayed on the  register/login form. 
