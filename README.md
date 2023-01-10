@@ -683,19 +683,24 @@ export const loginUser = async (req, res) => {
 ```
 
 ## Challenges
-* It was great having such a collaborative approach, but on a couple of occasions small bits of work were duplicated. As this was a learning opportunity it wasn't too problematic. 
-* It could be challenging building on someone else's code, or navigating around unfamiliar components.
-* The naming conventions are all over the place. As changes were made, due to the time limitations, some variables and functions were not renamed. This led to some confusion at points, especially when the group chose to change the topic a day into the coding process. 
+* It was great having such a collaborative approach, but on a couple of occasions small bits of work were duplicated. As this was a learning opportunity it wasn't too problematic, and in general our good communication ( stand-ups on Zoom, slack messages and use of Trello meant the project ran smoothly.  
+* It could be challenging building on someone else's code or navigating around unfamiliar components, however it was a great way to learn and helped improve my troubleshooting skills. 
+* The naming conventions are all over the place. Not all variables and functions were renamed as the project evolved, which led to some confusion at points. In future projects I will take care to ensure naming is semantically relevant (collaboratively agreed with colleagues) and will take the time to update the code as necessary. 
 * Parts of the code are heavily annotated which helps in understanding it, but can make it hard to read. It could be much more DRY and the Sass is unnecessarily lengthy - there are duplications due to three  people working on it in the final sprint!
-* Although it was important to have a good end product, my primary aim was to learn as much as possible, and do the basics well. It was great to learn from other group members who had more coding experience but sometimes there was a risk of overstretching on the deliverables, and not achieving the MVP.
+* Although it was important to have a good end product, my primary aim was to learn as much as possible and learn to do the basics well. It was great to learn from other group members who had more coding experience but sometimes there was a risk of overstretching on the deliverables, and not achieving the MVP. I felt I was able to effectively negotiate with the team on this point, and helped to maintain and monitor more realistic goals.
+
 
 ## Wins
 * This was my first time using GitHub as a team and it worked very well because we merged early and often (and had few merge conflicts).
-* I found working as a team was a great way of cementing my own skills, as well as learning new ones. Having a team that could act as a sounding board and support with problem solving felt very supportive. 
-* I utilised my soft skills with regards to team working, communication and organisation. I facilitated the daily standups and progress checking. 
+* I found working as a team was a great way of cementing my own skills, as well as learning new ones. Having a team that could act as a sounding board and support with problem solving felt very supportive.
+* I utilised my soft skills with regards to team working, communication and organisation. I facilitated the daily standups and progress checking.
+* I got much more comfortable with React.js and was able to build the database using MongoDB after less than a week of familiarity with it.
 
 ## Key Learning
-* Naming conventions are very important, and must be meaningful and consistent. Take time to make changes if necessary.
+* Naming conventions are very important, and must be meaningful and consistent. Take time to make changes as necessary.
+* It is important to spend a good amount of time planning, especially working out the database models and relationships. 
+* Building throw away code is fine, and refactoring is key to keeping code clearm DRY and simple. 
+* Learning to make a full stack app, connect it up and deploy.
 
 ## Future Improvements
 * Refactoring parts of the code, especially the Sass. There could be further break down into component parts.
