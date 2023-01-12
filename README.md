@@ -361,7 +361,7 @@ Both `Register.js` and `Login.js` are minimalistic forms, in keeping with the re
 
 ![Registration form ](https://user-images.githubusercontent.com/114397080/211071508-51151993-ee43-41db-b2ec-f5fe13ba840b.png)
 
-Unfortunately,the register and login forms lack error display to the user. This is an unfortunate oversight. Users are also able to register accounts with very insecure passwords, which is not optimal.
+Unfortunately, the register and login forms lack error display to the user. This is an unfortunate oversight. Users are also able to register accounts with very insecure passwords, which is not optimal.
 
 ### Styling
 This was achieved with a combination of Bootstrap and Sass. I styled the forms and we worked collaboratively on the visual design through the rest of the pages and components. We standardised features like the colour palette, buttons etc. 
