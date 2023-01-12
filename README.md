@@ -683,10 +683,10 @@ export const loginUser = async (req, res) => {
 ```
 
 ## Challenges
-* It was great having such a collaborative approach, but on a couple of occasions small bits of work were duplicated. As this was a learning opportunity it wasn't too problematic, and in general our good communication ( stand-ups on Zoom, slack messages and use of Trello meant the project ran smoothly.  
+* It was great having such a collaborative approach, but on a couple of occasions small bits of work were duplicated. As this was a learning opportunity it wasn't too problematic, and in general our good communication ( stand-ups on Zoom, slack messages and use of Trello meant the project ran smoothly) .  
 * It could be challenging building on someone else's code or navigating around unfamiliar components, however it was a great way to learn and helped improve my troubleshooting skills. 
 * The naming conventions are all over the place. Not all variables and functions were renamed as the project evolved, which led to some confusion at points. In future projects I will take care to ensure naming is semantically relevant (collaboratively agreed with colleagues) and will take the time to update the code as necessary. 
-* Parts of the code are heavily annotated which helps in understanding it, but can make it hard to read. It could be much more DRY and the Sass is unnecessarily lengthy - there are duplications due to three  people working on it in the final sprint!
+* Parts of the code are heavily annotated which helps in understanding it, but can make it hard to read. It could be much more DRY and the Sass is unnecessarily lengthy - there are duplications due to three people working on it in the final sprint!
 * Although it was important to have a good end product, my primary aim was to learn as much as possible and learn to do the basics well. It was great to learn from other group members who had more coding experience but sometimes there was a risk of overstretching on the deliverables, and not achieving the MVP. I felt I was able to effectively negotiate with the team on this point, and helped to maintain and monitor more realistic goals.
 
 
